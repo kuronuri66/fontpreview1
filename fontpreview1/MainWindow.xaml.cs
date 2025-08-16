@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Windows.Markup;
 using System.Linq; // ToList() のために追加
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace FontPreviewApp
 {
@@ -47,7 +48,8 @@ namespace FontPreviewApp
                     fontName1 = fontList[i].Source;
                 }
                 if (fontList[i].Source.Contains(enteredText, StringComparison.OrdinalIgnoreCase) ||
-                fontName1.Contains(enteredText, StringComparison.OrdinalIgnoreCase))
+                fontName1.Contains(enteredText, StringComparison.OrdinalIgnoreCase)
+                )
                 {
                     Button newButton = new Button();
                     StackPanel buttonContentPanel = new StackPanel();
@@ -121,11 +123,15 @@ namespace FontPreviewApp
         {
             fontdisplay();
         }
-        private void PreviewChanged(object sender, TextChangedEventArgs e)
+        private void PreviewChanged(object sender, KeyEventArgs e)
         {
-            fontdisplay();
+            if (e.Key == Key.Enter)
+            {
+                fontdisplay();
+
+                // （任意）Enterが押された後にTextBoxからフォーカスを外す
+                Keyboard.ClearFocus();
+            }
         }
     }
-    
-    
 }

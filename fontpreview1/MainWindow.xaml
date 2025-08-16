@@ -3,38 +3,44 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Font Previewer" Height="450" Width="800" Background="#1f1f1f">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Orientation="Horizontal" >
-                <TextBlock Text="検索" Foreground="#FFFFFF"/>
-                <TextBox 
-                    x:Name="SearchTextBox" 
-                    Width="200" 
-                    Margin="0,0,10,0" 
-                    Background="#1f1f1f" 
-                    Foreground="#FFFFFF" 
-                    TextChanged="Search_TextChanged"
-                    />
-                <TextBlock Text="preview" Foreground="#FFFFFF"/>
-                <TextBox 
-                    x:Name="PreviewTextBox" 
-                    Width="200" 
-                    Margin="0,0,10,0" 
-                    Background="#1f1f1f" 
-                    Foreground="#FFFFFF" 
-                    TextChanged="PreviewChanged"
-                    />
-            </StackPanel>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" >
+            <TextBlock Text="検索" Foreground="#FFFFFF"/>
+            <TextBox 
+                x:Name="SearchTextBox" 
+                Width="200" 
+                Margin="0,0,10,0" 
+                Background="#1f1f1f" 
+                Foreground="#FFFFFF" 
+                TextChanged="Search_TextChanged"
+                />
+            <TextBlock Text="preview" Foreground="#FFFFFF"/>
+            <TextBox 
+                x:Name="PreviewTextBox" 
+                Width="200" 
+                Margin="0,0,10,0" 
+                Background="#1f1f1f" 
+                Foreground="#FFFFFF" 
+                KeyUp="PreviewChanged"
+                />
 
-            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+            <CheckBox x:Name="myCheckBox"
+                Content="日本語"/>
+            
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled">
                 <StackPanel x:Name="fontGrid" Grid.ColumnSpan="2">
                     
                 </StackPanel>

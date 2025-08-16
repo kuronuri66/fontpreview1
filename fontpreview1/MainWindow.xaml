@@ -28,8 +28,11 @@
                 KeyUp="PreviewChanged"
                 />
 
-            <CheckBox x:Name="myCheckBox"
-                Content="日本語"/>
+            <CheckBox x:Name="JPCheckBox"
+                Content="日本語対応フォント"
+                Foreground="#FFFFFF"
+                Checked="JPClick"
+                Unchecked="JPClick"/>
             
         </StackPanel>
 

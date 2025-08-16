@@ -47,9 +47,11 @@ namespace FontPreviewApp
                 {
                     fontName1 = fontList[i].Source;
                 }
-                if (fontList[i].Source.Contains(enteredText, StringComparison.OrdinalIgnoreCase) ||
-                fontName1.Contains(enteredText, StringComparison.OrdinalIgnoreCase)
+                if ((fontList[i].Source.Contains(enteredText, StringComparison.OrdinalIgnoreCase) ||
+                fontName1.Contains(enteredText, StringComparison.OrdinalIgnoreCase))&& 
+                (JPCheckBox.IsChecked == false || IsJapaneseFont(fontList[i]))
                 )
+
                 {
                     Button newButton = new Button();
                     StackPanel buttonContentPanel = new StackPanel();
@@ -77,8 +79,12 @@ namespace FontPreviewApp
                             newTextBlockname.Background = new SolidColorBrush(Colors.Green);
                             newTextBlockname.HorizontalAlignment = HorizontalAlignment.Stretch;
 
+                            ColumnDefinition col1 = new ColumnDefinition();
+                            col1.Width = GridLength.Auto;
+                            newGrid.ColumnDefinitions.Add(col1);
+
                             newGrid.ColumnDefinitions.Add(new ColumnDefinition());
-                            newGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
                             newGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
                             newGrid.VerticalAlignment = VerticalAlignment.Stretch;
                             {
@@ -132,6 +138,30 @@ namespace FontPreviewApp
                 // （任意）Enterが押された後にTextBoxからフォーカスを外す
                 Keyboard.ClearFocus();
             }
+        }
+
+        private void JPClick(object sender, RoutedEventArgs e)
+        {
+            fontdisplay();
+        }
+
+        public bool IsJapaneseFont(FontFamily fontFamily)
+        {
+            // 日本語カルチャに対応する XmlLanguage を取得
+            XmlLanguage japaneseLanguage = XmlLanguage.GetLanguage("ja-jp");
+
+            // フォントファミリーの各タイプフェイスをループ
+            foreach (FamilyTypeface typeface in fontFamily.FamilyTypefaces)
+            {
+                // タイプフェイスの FaceNames に日本語カルチャが含まれているかチェック
+                if (fontFamily.FamilyNames.ContainsKey(japaneseLanguage))
+                {
+                    return true;
+                }
+            }
+
+            // 見つからなければ false を返す
+            return false;
         }
     }
 }

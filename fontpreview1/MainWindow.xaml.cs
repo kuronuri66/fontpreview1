@@ -48,7 +48,7 @@ namespace FontPreviewApp
                     fontName1 = fontList[i].Source;
                 }
                 if ((fontList[i].Source.Contains(enteredText, StringComparison.OrdinalIgnoreCase) ||
-                fontName1.Contains(enteredText, StringComparison.OrdinalIgnoreCase))&& 
+                fontName1.Contains(enteredText, StringComparison.OrdinalIgnoreCase)) &&
                 (JPCheckBox.IsChecked == false || IsJapaneseFont(fontList[i]))
                 )
 
@@ -61,11 +61,20 @@ namespace FontPreviewApp
                     TextBlock previewBlock = new TextBlock();
 
 
-                    newButton.Tag += fontList[i].Source;
+                    newButton.Tag = new { Font = fontList[i].Source, FontName = fontName1 };
                     newButton.Background = new SolidColorBrush(Color.FromRgb(31, 31, 31));
                     newButton.HorizontalAlignment = HorizontalAlignment.Stretch;
                     newButton.HorizontalContentAlignment = HorizontalAlignment.Stretch;
                     newButton.BorderThickness = new Thickness(0);
+                    //newButton.MouseRightButtonDown += copy_RightClick;
+
+                    ContextMenu? contextMenu = this?.FindResource("myButtonContextMenu") as ContextMenu;
+
+                    if (contextMenu != null)
+                    {
+                        newButton.ContextMenu = contextMenu;
+                    }
+
                     {
                         buttonContentPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
                         {
@@ -162,6 +171,68 @@ namespace FontPreviewApp
 
             // 見つからなければ false を返す
             return false;
+        }
+
+        private void Copyfontname(object sender, RoutedEventArgs e)
+        {
+            // イベントを発生させたのは MenuItem
+            MenuItem? menuItem = sender as MenuItem;
+
+            // MenuItem の親要素である ContextMenu を取得
+            ContextMenu? contextMenu = menuItem?.Parent as ContextMenu;
+
+            // ContextMenu が配置されているターゲット（この場合は Button）を取得
+            Button? clickedButton = contextMenu?.PlacementTarget as Button;
+
+            if (clickedButton != null)
+            {
+                // Button の Tag を取得
+                dynamic tagData = clickedButton.Tag;
+
+                try
+                {
+                    // クリップボードに文字列をコピー
+                    Clipboard.SetText(tagData.FontName);
+
+                    MessageBox.Show("テキストがクリップボードにコピーされました。");
+                }
+                catch (System.Runtime.InteropServices.COMException ex)
+                {
+                    // クリップボードへのアクセスが失敗した場合の処理
+                    MessageBox.Show($"クリップボードへのアクセスに失敗しました: {ex.Message}");
+                }
+            }
+        }
+        
+        private void Copyfont(object sender, RoutedEventArgs e)
+        {
+            // イベントを発生させたのは MenuItem
+            MenuItem? menuItem = sender as MenuItem;
+
+            // MenuItem の親要素である ContextMenu を取得
+            ContextMenu? contextMenu = menuItem?.Parent as ContextMenu;
+
+            // ContextMenu が配置されているターゲット（この場合は Button）を取得
+            Button? clickedButton = contextMenu?.PlacementTarget as Button;
+
+            if (clickedButton != null)
+            {
+                // Button の Tag を取得
+                dynamic tagData = clickedButton.Tag;
+
+                try
+                {
+                    // クリップボードに文字列をコピー
+                    Clipboard.SetText(tagData.Font);
+
+                    MessageBox.Show("テキストがクリップボードにコピーされました。");
+                }
+                catch (System.Runtime.InteropServices.COMException ex)
+                {
+                    // クリップボードへのアクセスが失敗した場合の処理
+                    MessageBox.Show($"クリップボードへのアクセスに失敗しました: {ex.Message}");
+                }
+            }
         }
     }
 }

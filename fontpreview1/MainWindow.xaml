@@ -2,6 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Font Previewer" Height="450" Width="800" Background="#1f1f1f">
+    <Window.Resources>
+        <ContextMenu x:Key="myButtonContextMenu">
+            <MenuItem Header="フォント名をコピー" Click="Copyfontname" />
+            <MenuItem Header="フォントの完全名をコピー" Click="Copyfont"/>
+        </ContextMenu>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

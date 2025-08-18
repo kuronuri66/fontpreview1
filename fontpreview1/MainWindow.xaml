@@ -1,7 +1,7 @@
 ﻿<Window x:Class="FontPreviewApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Font Previewer" Height="450" Width="800" Background="#1f1f1f">
+        Title="Font Previewer" Height="450" Width="800" Background="#1f1f1f" FontFamily="Noto Sans JP">
     <Window.Resources>
         <ContextMenu x:Key="myButtonContextMenu">
             <MenuItem Header="フォント名をコピー" Click="Copyfontname" />
@@ -54,6 +54,55 @@
                     
                 </StackPanel>
             </ScrollViewer>
+            <Grid Grid.Column="1" Height="Auto">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" >
+                    <TextBlock 
+                        x:Name="ClickFontName"
+                        Text="sample"
+                        FontSize="48"
+                        Foreground="#FFFFFF">
+                    </TextBlock>
+                    <TextBlock Text="sample"
+                        x:Name="ClickFont"
+                        FontSize="24"
+                        Foreground="#FFFFFF">
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="preview"
+                            Foreground="#FFFFFF">
+                        </TextBlock>
+                        <ComboBox x:Name="myComboBox"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="10"
+                            SelectionChanged="MyComboBox_SelectionChanged"
+                            Background="#1a1a1a" 
+                            Foreground="#FFFFFF" 
+                            />
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBox 
+                    x:Name="PreviewTextArea"
+                    AcceptsReturn="True" 
+                    Height="Auto" 
+                    Width="Auto" 
+                    TextWrapping="Wrap" 
+                    VerticalScrollBarVisibility="Auto"
+                    VerticalAlignment="Stretch"
+                    Grid.Row="1"
+                    Background="#1a1a1a" 
+                    Foreground="#FFFFFF" 
+                    FontSize="24">
+                </TextBox>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

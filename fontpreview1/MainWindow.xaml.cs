@@ -68,6 +68,9 @@ namespace FontPreviewApp
                     newButton.BorderThickness = new Thickness(0);
                     //newButton.MouseRightButtonDown += copy_RightClick;
 
+                    newButton.Click += newButton_Click;
+
+
                     ContextMenu? contextMenu = this?.FindResource("myButtonContextMenu") as ContextMenu;
 
                     if (contextMenu != null)
@@ -203,7 +206,7 @@ namespace FontPreviewApp
                 }
             }
         }
-        
+
         private void Copyfont(object sender, RoutedEventArgs e)
         {
             // イベントを発生させたのは MenuItem
@@ -232,6 +235,76 @@ namespace FontPreviewApp
                     // クリップボードへのアクセスが失敗した場合の処理
                     MessageBox.Show($"クリップボードへのアクセスに失敗しました: {ex.Message}");
                 }
+            }
+        }
+
+        private void newButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button? clickedButton = sender as Button;
+            if (clickedButton != null)
+            {
+                dynamic tagValue = clickedButton.Tag;
+                if (tagValue != null)
+                {
+                    ClickFont.Text = tagValue.Font;
+                    ClickFontName.FontFamily = new FontFamily(tagValue.Font);
+                    ClickFontName.Text = tagValue.Font;
+                    PreviewTextArea.FontFamily = new FontFamily(tagValue.Font);
+
+                    InitializeComponent();
+
+                    FontFamily myFontFamily = new FontFamily(tagValue.Font);
+
+                    // 利用可能なフォントの太さのリストを取得
+                    List<FontWeight> fontWeights = GetAvailableFontWeights(myFontFamily);
+
+                    // XAMLで定義したComboBoxにリストをバインド
+                    myComboBox.ItemsSource = fontWeights;
+                    if (myComboBox.SelectedValue != null)
+                    {
+                        PreviewTextArea.FontWeight = (FontWeight)myComboBox.SelectedValue;
+                    }
+                }
+            }
+        }
+
+        public List<FontWeight> GetAvailableFontWeights(FontFamily fontFamily)
+        {
+            // 重複を避けるためにHashSetを使用し、その後Listに変換
+            HashSet<FontWeight> weights = new HashSet<FontWeight>();
+
+            foreach (FamilyTypeface typeface in fontFamily.FamilyTypefaces)
+            {
+                weights.Add(typeface.Weight);
+            }
+
+            // Sort the list for better user experience
+            List<FontWeight> sortedWeights = weights.OrderBy(w => w.ToOpenTypeWeight()).ToList();
+
+            return sortedWeights;
+        }
+
+        public FontWeight? GetFontWeightFromString(string weightString)
+        {
+            // FontWeightConverterのインスタンスを作成
+            FontWeightConverter converter = new FontWeightConverter();
+
+            // ConvertFromStringメソッドで文字列をFontWeightに変換
+            if (converter.IsValid(weightString))
+            {
+                return (FontWeight)converter.ConvertFromString(weightString);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private void MyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (myComboBox.SelectedValue != null)
+            {
+                PreviewTextArea.FontWeight = (FontWeight)myComboBox.SelectedValue;
             }
         }
     }

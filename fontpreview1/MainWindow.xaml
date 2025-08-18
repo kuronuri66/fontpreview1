@@ -3,10 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Font Previewer" Height="450" Width="800" Background="#1f1f1f" FontFamily="Noto Sans JP">
     <Window.Resources>
-        <ContextMenu x:Key="myButtonContextMenu">
-            <MenuItem Header="フォント名をコピー" Click="Copyfontname" />
-            <MenuItem Header="フォントの完全名をコピー" Click="Copyfont"/>
+        <ContextMenu 
+            x:Key="myButtonContextMenu"
+            Background="#1a1a1a" 
+            Foreground="#FFFFFF">
+            <MenuItem Header="フォント名をコピー" Click="Copyfontname" Background="#1a1a1a" BorderThickness="0"/>
+            <MenuItem Header="フォントの完全名をコピー" Click="Copyfont" Background="#1a1a1a" BorderThickness="0"/>
         </ContextMenu>
+
+        
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -84,7 +89,7 @@
                             Margin="10"
                             SelectionChanged="MyComboBox_SelectionChanged"
                             Background="#1a1a1a" 
-                            Foreground="#FFFFFF" 
+                            Foreground="#000000" 
                             />
                     </StackPanel>
                 </StackPanel>
@@ -100,7 +105,8 @@
                     Grid.Row="1"
                     Background="#1a1a1a" 
                     Foreground="#FFFFFF" 
-                    FontSize="24">
+                    FontSize="24"
+                    Text="ここで試せる">
                 </TextBox>
             </Grid>
         </Grid>

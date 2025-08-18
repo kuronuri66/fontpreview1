@@ -92,10 +92,12 @@ namespace FontPreviewApp
                             newTextBlockname.HorizontalAlignment = HorizontalAlignment.Stretch;
 
                             ColumnDefinition col1 = new ColumnDefinition();
-                            col1.Width = GridLength.Auto;
+                            //col1.Width = GridLength.Auto;
                             newGrid.ColumnDefinitions.Add(col1);
 
-                            newGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                            ColumnDefinition col2 = new ColumnDefinition();
+                            col2.Width = GridLength.Auto;
+                            newGrid.ColumnDefinitions.Add(col2);
 
                             newGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
                             newGrid.VerticalAlignment = VerticalAlignment.Stretch;

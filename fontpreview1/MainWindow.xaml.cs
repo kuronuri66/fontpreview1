@@ -1,11 +1,10 @@
-﻿using System.Windows;
-using System.Windows.Media;
-using System.Windows.Controls;
+﻿using System.Diagnostics;
 using System.Globalization;
-using System.Windows.Markup;
-using System.Linq; // ToList() のために追加
-using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace FontPreviewApp
 {
@@ -62,7 +61,7 @@ namespace FontPreviewApp
 
 
                     newButton.Tag = new { Font = fontList[i].Source, FontName = fontName1 };
-                    newButton.Background = new SolidColorBrush(Color.FromRgb(31, 31, 31));
+                    //newButton.Background = new SolidColorBrush(Color.FromRgb(31, 31, 31));
                     newButton.HorizontalAlignment = HorizontalAlignment.Stretch;
                     newButton.HorizontalContentAlignment = HorizontalAlignment.Stretch;
                     newButton.BorderThickness = new Thickness(0);
@@ -250,7 +249,7 @@ namespace FontPreviewApp
                 {
                     ClickFont.Text = tagValue.Font;
                     ClickFontName.FontFamily = new FontFamily(tagValue.Font);
-                    ClickFontName.Text = tagValue.Font;
+                    ClickFontName.Text = tagValue.FontName;
                     PreviewTextArea.FontFamily = new FontFamily(tagValue.Font);
 
                     InitializeComponent();

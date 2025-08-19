@@ -10,8 +10,14 @@
             <MenuItem Header="フォント名をコピー" Click="Copyfontname" Background="#1a1a1a" BorderThickness="0"/>
             <MenuItem Header="フォントの完全名をコピー" Click="Copyfont" Background="#1a1a1a" BorderThickness="0"/>
         </ContextMenu>
-
-        
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#1f1f1f"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -19,11 +25,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" >
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#1a1a1a">
             <TextBlock Text="検索" Foreground="#FFFFFF"/>
             <TextBox 
                 x:Name="SearchTextBox" 
-                Width="200" 
+                Width="125" 
                 Margin="0,0,10,0" 
                 Background="#1f1f1f" 
                 Foreground="#FFFFFF" 
@@ -32,7 +38,7 @@
             <TextBlock Text="preview" Foreground="#FFFFFF"/>
             <TextBox 
                 x:Name="PreviewTextBox" 
-                Width="200" 
+                Width="125" 
                 Margin="0,0,10,0" 
                 Background="#1f1f1f" 
                 Foreground="#FFFFFF" 
@@ -40,7 +46,7 @@
                 />
 
             <CheckBox x:Name="JPCheckBox"
-                Content="日本語対応フォント"
+                Content="日本語フォント"
                 Foreground="#FFFFFF"
                 Checked="JPClick"
                 Unchecked="JPClick"/>
@@ -51,6 +57,7 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -59,39 +66,51 @@
                     
                 </StackPanel>
             </ScrollViewer>
-            <Grid Grid.Column="1" Height="Auto">
+
+            <GridSplitter Grid.Column="1"
+                Background="#1a1a1a"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                ResizeBehavior="PreviousAndNext"
+                ResizeDirection="Columns"
+                ShowsPreview="True"/>
+
+            <Grid Grid.Column="2" Height="Auto">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0" >
-                    <TextBlock 
-                        x:Name="ClickFontName"
-                        Text="sample"
-                        FontSize="48"
-                        Foreground="#FFFFFF">
-                    </TextBlock>
-                    <TextBlock Text="sample"
-                        x:Name="ClickFont"
-                        FontSize="24"
-                        Foreground="#FFFFFF">
-                    </TextBlock>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="preview"
-                            Foreground="#FFFFFF">
-                        </TextBlock>
-                        <ComboBox x:Name="myComboBox"
-                            Width="150"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Margin="10"
-                            SelectionChanged="MyComboBox_SelectionChanged"
-                            Background="#1a1a1a" 
-                            Foreground="#000000" 
-                            />
-                    </StackPanel>
+                <StackPanel Grid.Row="0">
+                            <StackPanel>
+                                <TextBlock 
+                                    x:Name="ClickFontName"
+                                    Text="sample"
+                                    FontSize="48"
+                                    Foreground="#FFFFFF">
+                                </TextBlock>
+                                <TextBlock Text="sample"
+                                    x:Name="ClickFont"
+                                    FontSize="24"
+                                    Foreground="#FFFFFF">       
+                                </TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="preview"
+                                         Foreground="#FFFFFF">
+                                    </TextBlock>
+                                    <ComboBox x:Name="myComboBox"
+                                        Width="150"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Margin="10"
+                                        SelectionChanged="MyComboBox_SelectionChanged"
+                                        Background="#1a1a1a" 
+                                        Foreground="#000000" 
+        />
+                                </StackPanel>
+                            </StackPanel>
+                    
                 </StackPanel>
 
                 <TextBox 
@@ -105,8 +124,8 @@
                     Grid.Row="1"
                     Background="#1a1a1a" 
                     Foreground="#FFFFFF" 
-                    FontSize="24"
-                    Text="ここで試せる">
+                    FontSize="30"
+                    Text="The quick brown fox jumps over the lazy dog.&#x0d;&#x0a;古池や蛙飛び込む水の音&#x0d;&#x0a;サラダ記念日&#x0d;&#x0a;0123456789">
                 </TextBox>
             </Grid>
         </Grid>

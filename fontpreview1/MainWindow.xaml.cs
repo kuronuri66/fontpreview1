@@ -52,90 +52,76 @@ namespace FontPreviewApp
                 )
 
                 {
-                    Button newButton = new Button();
-                    StackPanel buttonContentPanel = new StackPanel();
-                    TextBlock newTextBlockname = new TextBlock();
-                    Grid newGrid = new Grid();
-                    TextBlock newTextBlock = new TextBlock();
-                    TextBlock previewBlock = new TextBlock();
-
-
-                    newButton.Tag = new { Font = fontList[i].Source, FontName = fontName1 };
-                    //newButton.Background = new SolidColorBrush(Color.FromRgb(31, 31, 31));
-                    newButton.HorizontalAlignment = HorizontalAlignment.Stretch;
-                    newButton.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-                    newButton.BorderThickness = new Thickness(0);
-                    //newButton.MouseRightButtonDown += copy_RightClick;
-
-                    newButton.Click += newButton_Click;
-
-
                     ContextMenu? contextMenu = this?.FindResource("myButtonContextMenu") as ContextMenu;
-
+                    FontFamily gothicFont = new FontFamily("Noto-sans-JP");
                     if (contextMenu != null)
                     {
-                        newButton.ContextMenu = contextMenu;
-                    }
-
-                    {
-                        buttonContentPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
+                        TextBlock newTextBlock = new TextBlock()
                         {
+                            Text = fontName1,
+                            FontFamily = fontList[i],
+                            FontSize = 25,
+                            Foreground = new SolidColorBrush(Colors.White),
+                            HorizontalAlignment = HorizontalAlignment.Left
+                        };
+                        TextBlock previewBlock = new TextBlock()
+                        {
+                            FontFamily = fontList[i],
+                            FontSize = 25,
+                            Foreground = new SolidColorBrush(Colors.White),
+                            HorizontalAlignment = HorizontalAlignment.Right,
+                            Text = previewText
+                        };
 
-                            FontFamily gothicFont = new FontFamily("Noto-sans-JP");
-
-                            newTextBlockname.Text = fontList[i].Source;
-                            newTextBlockname.FontFamily = gothicFont;
-                            newTextBlockname.FontSize = 12;
-                            newTextBlockname.Foreground = new SolidColorBrush(Colors.White);
-                            newTextBlockname.Background = new SolidColorBrush(Colors.Green);
-                            newTextBlockname.HorizontalAlignment = HorizontalAlignment.Stretch;
-
-                            ColumnDefinition col1 = new ColumnDefinition();
-                            //col1.Width = GridLength.Auto;
-                            newGrid.ColumnDefinitions.Add(col1);
-
-                            ColumnDefinition col2 = new ColumnDefinition();
-                            col2.Width = GridLength.Auto;
-                            newGrid.ColumnDefinitions.Add(col2);
-
-                            newGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
-                            newGrid.VerticalAlignment = VerticalAlignment.Stretch;
+                        Button newButton = new Button()
+                        {
+                            Tag = new { Font = fontList[i].Source, FontName = fontName1 },
+                            HorizontalAlignment = HorizontalAlignment.Stretch,
+                            HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                            BorderThickness = new Thickness(0),
+                            ContextMenu = contextMenu,
+                            Content = new StackPanel
                             {
+                                HorizontalAlignment = HorizontalAlignment.Stretch,
 
-                                // フォントの完全名を取得、存在しない場合は .Source を使用
-                                if (!string.IsNullOrEmpty(fontName))
+                                Children =
                                 {
-                                    newTextBlock.Text = fontName;
+                                    new TextBlock 
+                                    {
+                                        Text = fontList[i].Source,
+                                        FontFamily = gothicFont,
+                                        FontSize = 12,
+                                        Foreground = new SolidColorBrush(Colors.White),
+                                        Background = new SolidColorBrush(Colors.Green),
+                                        HorizontalAlignment = HorizontalAlignment.Stretch
+                                    },
+                                    new Grid
+                                    {
+                                        HorizontalAlignment = HorizontalAlignment.Stretch,
+                                        VerticalAlignment = VerticalAlignment.Stretch,
+
+                                        ColumnDefinitions =
+                                        {
+                                            new ColumnDefinition {},
+                                            new ColumnDefinition
+                                            {
+                                                Width = GridLength.Auto
+                                            }
+                                        },
+                                        Children =
+                                        {
+                                            newTextBlock,
+                                            previewBlock
+                                        }
+                                    }
                                 }
-                                else
-                                {
-                                    newTextBlock.Text = fontList[i].Source;
-                                }
-
-                                newTextBlock.FontFamily = fontList[i];
-                                newTextBlock.FontSize = 25;
-                                newTextBlock.Foreground = new SolidColorBrush(Colors.White);
-                                newTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-
-
-                                previewBlock.FontFamily = fontList[i];
-                                previewBlock.FontSize = 25;
-                                previewBlock.Foreground = new SolidColorBrush(Colors.White);
-                                previewBlock.HorizontalAlignment = HorizontalAlignment.Right;
-                                previewBlock.Text = previewText;
                             }
-                        }
-                        Grid.SetColumn(newTextBlock, 0);
-                        Grid.SetColumn(previewBlock, 1);
-                        newGrid.Children.Add(newTextBlock);
-                        newGrid.Children.Add(previewBlock);
-                        buttonContentPanel.Children.Add(newTextBlockname);
-                        buttonContentPanel.Children.Add(newGrid);
+                        };
+                        newButton.Click += newButton_Click;
+                        fontGrid.Children.Add(newButton);
                     }
-                    newButton.Content = buttonContentPanel;
-                    fontGrid.Children.Add(newButton);
-                }
 
+                }
             }
         }
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
@@ -293,7 +279,7 @@ namespace FontPreviewApp
             // ConvertFromStringメソッドで文字列をFontWeightに変換
             if (converter.IsValid(weightString))
             {
-                return (FontWeight)converter.ConvertFromString(weightString);
+                return (FontWeight?)converter.ConvertFromString(weightString);
             }
             else
             {

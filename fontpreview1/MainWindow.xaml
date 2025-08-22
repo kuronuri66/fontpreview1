@@ -76,57 +76,68 @@
                 ShowsPreview="True"/>
 
             <Grid Grid.Column="2" Height="Auto">
+                <TabControl Background="#1f1f1f">
+                    <TabItem Header="メイン">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <StackPanel Grid.Row="0">
-                            <StackPanel>
-                                <TextBlock 
-                                    x:Name="ClickFontName"
-                                    Text="sample"
-                                    FontSize="48"
-                                    Foreground="#FFFFFF">
-                                </TextBlock>
-                                <TextBlock Text="sample"
-                                    x:Name="ClickFont"
-                                    FontSize="24"
-                                    Foreground="#FFFFFF">       
-                                </TextBlock>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="preview"
-                                         Foreground="#FFFFFF">
+                            <StackPanel Grid.Row="0">
+                                <StackPanel>
+                                    <TextBlock 
+                                        x:Name="ClickFontName"
+                                        Text="sample"
+                                        FontSize="48"
+                                        Foreground="#FFFFFF">
                                     </TextBlock>
-                                    <ComboBox x:Name="myComboBox"
-                                        Width="150"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Margin="10"
-                                        SelectionChanged="MyComboBox_SelectionChanged"
-                                        Background="#1a1a1a" 
-                                        Foreground="#000000" 
-        />
+                                    <TextBlock Text="sample"
+                                        x:Name="ClickFont"
+                                        FontSize="24"
+                                        Foreground="#FFFFFF">       
+                                    </TextBlock>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="preview"
+                                                Foreground="#FFFFFF">
+                                        </TextBlock>
+                                        <ComboBox x:Name="myComboBox"
+                                            Width="150"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            Margin="10"
+                                            SelectionChanged="MyComboBox_SelectionChanged"
+                                            Background="#1a1a1a" 
+                                            Foreground="#000000" />
+                                    </StackPanel>
                                 </StackPanel>
+                                
                             </StackPanel>
-                    
-                </StackPanel>
 
-                <TextBox 
-                    x:Name="PreviewTextArea"
-                    AcceptsReturn="True" 
-                    Height="Auto" 
-                    Width="Auto" 
-                    TextWrapping="Wrap" 
-                    VerticalScrollBarVisibility="Auto"
-                    VerticalAlignment="Stretch"
-                    Grid.Row="1"
-                    Background="#1a1a1a" 
-                    Foreground="#FFFFFF" 
-                    FontSize="30"
-                    Text="The quick brown fox jumps over the lazy dog.&#x0d;&#x0a;古池や蛙飛び込む水の音&#x0d;&#x0a;サラダ記念日&#x0d;&#x0a;0123456789">
-                </TextBox>
+                            <TextBox 
+                                x:Name="PreviewTextArea"
+                                AcceptsReturn="True" 
+                                Height="Auto" 
+                                Width="Auto" 
+                                TextWrapping="Wrap" 
+                                VerticalScrollBarVisibility="Auto"
+                                VerticalAlignment="Stretch"
+                                Grid.Row="1"
+                                Background="#1a1a1a" 
+                                Foreground="#FFFFFF" 
+                                FontSize="30"
+                                Text="The quick brown fox jumps over the lazy dog.&#x0d;&#x0a;古池や蛙飛び込む水の音&#x0d;&#x0a;サラダ記念日&#x0d;&#x0a;0123456789">
+                            </TextBox>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="比較">
+                        <Grid>
+                            <StackPanel x:Name="comparisonPanel">
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
             </Grid>
         </Grid>
     </Grid>
